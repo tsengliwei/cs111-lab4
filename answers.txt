@@ -1,0 +1,68 @@
+# Fill in your name, student ID, and email address in this file.
+# If you are working in a team, fill out the information for both team 
+# members.
+
+# SUBMIT THE LAB ONLY ONCE (from only one partner). This file will be
+# automatically parsed in order to give both team members credit for the
+# lab.
+
+# You need to fill in the EXERCISE sections describing your solutions
+# for Tasks 1, 2, and 3, as well as write the corresponding code.
+# If you did one or more extra credit problems, indicate which one in the
+# appropriate section below (remove the # sign first). If you have any other
+# information you'd like us to know, please add it at the end of the file.
+
+# Partner 1
+Name: Siran Shen
+Student ID: 304283584
+Email: shensimon@yahoo.com
+
+# Partner 2 (if you're working in a team)
+Name: Li-Wei Tseng
+Student ID: 304289977
+Email: tsengliwei@gmail.com
+
+# EXERCISE 1: What method you used to make your peer download and upload
+#    files in parallel?  (~1-3 sentences)
+
+Used fork() to parallel download and then upload in child processes.
+
+
+# EXERCISE 2A: What conditions did you find and fix that would have
+#    triggered a buffer overrun bug?  (~1-3 sentences each)
+
+1. In start_download, the filename could overrun the buffer, so check its
+	size beforehand.
+2. In task_upload, same as above.
+
+
+# EXERCISE 2B: What other robustness problems did you fix?  (~1-3 sentences
+#    each)
+
+1. Could serve files outside the current working directory. Limit it to the
+	current directory.
+2. Too many peers coming in at once may confuse the tracker. Enable processing
+	peers using the buffer for infinite times.
+3. In task_download, if too much is written onto the disk, there may be 
+	risks being flooded. So limit the total size that can be written for 
+	each file.
+
+# EXERCISE 3: Describe the attacks you implemented for "evil mode".  Why
+#    are they attacks?  (~3-10 sentences each)
+
+Evil Mode 1.
+File name overrun: overflows other peers’ filename, so other
+peers will crash if they are unable to detect it.
+
+Evil Mode 2.
+Denial of service:  keep opening new connection with all the peers 
+within P2P network. Other peers think we are going to download the
+file, so they might fork processes to manage our requests. If there are too many requests in a given time, they will fill up peers’ process tables and paralyze the P2P network.
+
+Evil Mode 3.
+Passive attack (attack on request): transfer /dev/random to any request, so random data can fill up downloader’s disk.
+
+# Extra credit problems
+#Extra credit problem: none
+
+# Add any other information you'd like us to know below this line.
